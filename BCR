@@ -1,0 +1,118 @@
+seqtk subseq DN-B/20230706/Result/05.match/matched_productive_contig.fasta DN-B/DN_igh_valid_contig_id.txt > DN-B/DN_igh_valid_contig.fa;
+ seqtk subseq DN-B/20230706/Result/05.match/matched_productive_contig.fasta DN-B/DN_igh_valid_contig_id.txt > DN-B/DN_igh_valid_contig.fa;seqtk subseq DP-B/20230706/Result/05.match/matched_productive_contig.fasta DP-B/DP_igh_valid_contig_id.txt > DP-B/DP_igh_valid_contig.fa;seqtk subseq NB-B/20230706/Result/05.match/matched_productive_contig.fasta NB-B/NB_igh_valid_contig_id.txt > NB-B/NB_igh_valid_contig.fa;seqtk subseq PC-B/20230706/Result/05.match/matched_productive_contig.fasta PC-B/PC_igh_valid_contig_id.txt > PC-B/PC_igh_valid_contig.fa;
+
+
+wget ftp://ftp.ncbi.nih.gov/blast/executables/igblast/release/1.17.0/ncbi-igblast-1.17.0-x64-linux.tar.gz
+tar -zxf ncbi-igblast-1.17.0-x64-linux.tar.gz
+ sudo cp /mnt/e/P23042711/imgt/ncbi-igblast-1.17.0/bin/* bin/
+sudo cp /mnt/e/P23042711/imgt/kleinstein-immcantation-608c95c0b4b0/scripts/* bin/
+ fetch_igblastdb.sh -o /mnt/e/P23042711/imgt/share/igblast/
+cp -r /mnt/e/P23042711/imgt/ncbi-igblast-1.17.0/internal_data/ /mnt/e/P23042711/imgt/share/igblast/
+cp -r /mnt/e/P23042711/imgt/ncbi-igblast-1.17.0/optional_file/ /mnt/e/P23042711/imgt/share/igblast/
+fetch_imgtdb.sh -o /mnt/e/P23042711/imgt/share/imgt/
+imgt2igblast.sh -i /mnt/e/P23042711/imgt/share/imgt/ -o /mnt/e/P23042711/imgt/share/igblast
+#########  NOUSE
+ AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast --nproc 40;
+AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname NB_airr --nproc 40;
+AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname NB_airr --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DN-B/DN_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname DN_blast --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DN-B/DN_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname DN_airr --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DP-B/DP_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname DP_blast --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DP-B/DP_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname DP_airr --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/PC-B/PC_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname PC_blast --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/PC-B/PC_igh_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname PC_airr --nproc 40;
+
+MakeDb.py igblast -i /mnt/e/P23042711/DN-B/DN_blast_igblast.fmt7 -s /mnt/e/P23042711/DN-B/DN_igh_valid_contig.fa -r /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHV.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHD.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHJ.fasta --extended --outname DN_blast_01;
+
+MakeDb.py igblast -i /mnt/e/P23042711/DN-B/DN_blast_igblast.fmt7 -s /mnt/e/P23042711/DN-B/DN_igh_valid_contig.fa -r /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHV.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHD.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IG
+HJ.fasta --extended --outname DN_blast_01;MakeDb.py igblast -i /mnt/e/P23042711/DP-B/DP_blast_igblast.fmt7 -s /mnt/e/P23042711/DP-B/DP_igh_valid_contig.fa -r /mnt/e/P230
+42711/imgt/share/imgt/human/vdj/imgt_human_IGHV.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHD.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_hu
+man_IGHJ.fasta --extended --outname DP_blast_01;MakeDb.py igblast -i /mnt/e/P23042711/NB-B/NB_blast_igblast.fmt7 -s /mnt/e/P23042711/NB-B/NB_igh_valid_contig.fa -r /mnt/
+e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHV.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHD.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/i
+mgt_human_IGHJ.fasta --extended --outname NB_blast_01;MakeDb.py igblast -i /mnt/e/P23042711/PC-B/PC_blast_igblast.fmt7 -s /mnt/e/P23042711/PC-B/PC_igh_valid_contig.fa -r /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHV.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHD.fasta /mnt/e/P23042711/imgt/share/imgt/human/vdj/imgt_human_IGHJ.fasta --extended --outname PC_blast_01;
+
+
+
+
+git clone https://bitbucket.org/kleinstein/igphyml
+cd igphyml
+./make_phyml_omp
+
+####### stop waiting for email  ........    wrong 
+
+seqtk subseq DN-B/20230706/Result/05.match/matched_productive_contig.fasta DN-B/DN_valid_contig_id_with_igk.txt > DN-B/DN_valid_contig.fa;
+AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast_with_igk --nproc 40;
+ AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname NB_airr_with_igk --nproc 40;
+AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/NB_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname NB_airr_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DN-B/DN_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname DN_blast_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DN-B/DN_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname DN_airr_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DP-B/DP_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname DP_blast_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DP-B/DP_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname DP_airr_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/PC-B/PC_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname PC_blast_with_igk --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/PC-B/PC_valid_contig.fa -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format airr --outname PC_airr_with_igk --nproc 40;
+
+
+ MakeDb.py igblast -i DN-B/DN_blast_with_igk_igblast.fmt7 -s DN-B/DN_valid_contig.fa -r imgt/share/imgt/human/vdj/imgt_
+human_*.fasta --10x DN-B/20230630/Matrix/DN-B_matrix.csv --extended;MakeDb.py igblast -i DP-B/DP_blast_with_igk_igblast.fmt7 -s DP-B/DP_valid_contig.fa -r imgt/share/img
+t/human/vdj/imgt_human_*.fasta --10x DP-B/20230630/Matrix/DP-B_matrix.csv --extended;MakeDb.py igblast -i NB-B/NB_blast_with_igk_igblast.fmt7 -s NB-B/NB_valid_contig.fa
+-r imgt/share/imgt/human/vdj/imgt_human_*.fasta --10x NB-B/20230630/Matrix/NB-B_matrix.csv --extended;MakeDb.py igblast -i PC-B/PC_blast_with_igk_igblast.fmt7 -s PC-B/PC
+_valid_contig.fa -r imgt/share/imgt/human/vdj/imgt_human_*.fasta --10x PC-B/20230630/Matrix/PC-B_matrix.csv --extended;
+
+
+ParseDb.py select -d DN-B/DN_blast_with_igk_igblast_db-pass.tsv -f locus -u "IGH" --logic all --regex --outname heavy;ParseDb.py select -d DN-B/DN_blast_with_igk_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outname light;ParseDb.py select -d DP-B/DP_blast_with_igk_igbl
+ast_db-pass.tsv -f locus -u "IGH" --logic all --regex --outname heavy;ParseDb.py select -d DP-B/DP_blast_with_igk_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --
+regex --outname light;ParseDb.py select -d NB-B/NB_blast_with_igk_igblast_db-pass.tsv -f locus -u "IGH" --logic all --regex --outname heavy;ParseDb.py select -d NB-B/NB_
+blast_with_igk_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outname light;ParseDb.py select -d PC-B/PC_blast_with_igk_igblast_db-pass.tsv -f locus -u "
+IGH" --logic all --regex --outname heavy;ParseDb.py select -d PC-B/PC_blast_with_igk_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outname light;
+
+DefineClones.py -d NB-B/heavy_parse-select.tsv --act set --model ham --norm len --dist 0;DefineClones.py -d DN-B/heavy
+_parse-select.tsv --act set --model ham --norm len --dist 0.28;DefineClones.py -d DP-B/heavy_parse-select.tsv --act set --model ham --norm len --dist 0.21;DefineClones.py -d PC-B/heavy_parse-select.tsv --act set --model ham --norm len --dist 0.19;
+
+light_cluster.py -d DN-B/heavy_parse-select_clone-pass.tsv -e DN-B/light_parse-select.tsv -o DN-B/DN_blast_with_igk_igblast_10X_clone-pass.tsv;
+
+
+#### 
+
+AssignGenes.py igblast -s /mnt/e/P23042711/NB-B/20230706/Result/05.match/matched_productive_contig.fasta -b /mnt/e/P23
+042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname NB_blast_with_igk_raw --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/DN-B/20230706/
+Result/05.match/matched_productive_contig.fasta -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname DN_blast_with_igk_raw --nproc
+ 40;AssignGenes.py igblast -s /mnt/e/P23042711/DP-B/20230706/Result/05.match/matched_productive_contig.fasta -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --l
+oci ig --format blast --outname DP_blast_with_igk_raw --nproc 40;AssignGenes.py igblast -s /mnt/e/P23042711/PC-B/20230706/Result/05.match/matched_productive_contig.fasta -b /mnt/e/P23042711/imgt/share/igblast/ --organism human --loci ig --format blast --outname PC_blast_with_igk_raw --nproc 40;
+
+
+MakeDb.py igblast -i NB-B/20230706/Result/05.match/NB_blast_with_igk_raw_igblast.fmt7 -s NB-B/20230706/Result/05.match/matched_productive_contig.fasta -r imgt/share/imgt/human/vdj/imgt_human_*.fasta --10x NB-B/20230630/Matrix/NB-B_matrix.csv --extended;MakeDb.py igblast -i DN-B/20230706
+/Result/05.match/DN_blast_with_igk_raw_igblast.fmt7 -s DN-B/20230706/Result/05.match/matched_productive_contig.fasta -r imgt/share/imgt/human/vdj/imgt_human_*.fasta --10
+x DN-B/20230630/Matrix/DN-B_matrix.csv --extended;MakeDb.py igblast -i DP-B/20230706/Result/05.match/DP_blast_with_igk_raw_igblast.fmt7 -s DP-B/20230706/Result/05.match/
+matched_productive_contig.fasta -r imgt/share/imgt/human/vdj/imgt_human_*.fasta --10x DP-B/20230630/Matrix/DP-B_matrix.csv --extended;MakeDb.py igblast -i PC-B/20230706/Result/05.match/PC_blast_with_igk_raw_igblast.fmt7 -s PC-B/20230706/Result/05.match/matched_productive_contig.fasta -r imgt/share/imgt/human/vdj/imgt_human_*.fasta --10x PC-B/20230630/Matrix/PC-B_matrix.csv --extended;
+
+ParseDb.py select -d DN-B/20230706/Result/05.match/DN_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IGH" --logic
+ all --regex --outname heavy;ParseDb.py select -d DN-B/20230706/Result/05.match/DN_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outn
+ame light;ParseDb.py select -d DP-B/20230706/Result/05.match/DP_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IGH" --logic all --regex --outname heavy;ParseDb.py s
+elect -d DP-B/20230706/Result/05.match/DP_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outname light;ParseDb.py select -d NB-B/20230
+706/Result/05.match/NB_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IGH" --logic all --regex --outname heavy;ParseDb.py select -d NB-B/20230706/Result/05.match/NB
+_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outname light;ParseDb.py select -d PC-B/20230706/Result/05.match/PC_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IGH" --logic all --regex --outname heavy;ParseDb.py select -d PC-B/20230706/Result/05.match/PC_blast_with_igk_raw_igblast_db-pass.tsv -f locus -u "IG[LK]" --logic all --regex --outname light;
+
+
+DefineClones.py -d NB-B/20230706/Result/05.match/heavy_parse-select.tsv --act set --model ham --norm len --dist 0;DefineClones.py -d DN-B/20230706/Result/05.match/heavy_parse-select.tsv --a
+ct set --model ham --norm len --dist 0.21;DefineClones.py -d DP-B/20230706/Result/05.match/heavy_parse-select.tsv --act
+set --model ham --norm len --dist 0.20;DefineClones.py -d PC-B/20230706/Result/05.match/heavy_parse-select.tsv --act set
+ --model ham --norm len --dist 0.18;
+
+
+light_cluster.py -d DN-B/20230706/Result/05.match/heavy_parse-select_clone-pass.tsv -e DN-B/20230706/Result/05.match/light_parse-select.tsv -o DN-B/20230706/Result/05.match/10X_clone-pass.tsv;light_cluster.py -d DP-B/20230706/Result/05.match/heavy_parse-select_clone-pass.tsv -e DP-B/202
+30706/Result/05.match/light_parse-select.tsv -o DP-B/20230706/Result/05.match/10X_clone-pass.tsv;light_cluster.py -d NB-B/20230706/Result/05.match/heavy_parse-select_clo
+ne-pass.tsv -e NB-B/20230706/Result/05.match/light_parse-select.tsv -o NB-B/20230706/Result/05.match/10X_clone-pass.tsv;light_cluster.py -d PC-B/20230706/Result/05.match
+/heavy_parse-select_clone-pass.tsv -e PC-B/20230706/Result/05.match/light_parse-select.tsv -o PC-B/20230706/Result/05.match/10X_clone-pass.tsv;
+
+ParseDb.py select -d DN-B/20230706/Result/05.match/10X_clone-pass.tsv -f productive -u T;ParseDb.py select -d DP-B/202
+30706/Result/05.match/10X_clone-pass.tsv -f productive -u T;ParseDb.py select -d NB-B/20230706/Result/05.match/10X_clone-pass.tsv -f productive -u T;ParseDb.py select -d PC-B/20230706/Result/05.match/10X_clone-pass.tsv -f productive -u T;
+
+ParseDb.py select -d DN-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IGH" --logic all --regex --outname heavy;ParseDb.py select -d DP-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IGH" --logic all --regex
+ --outname heavy;ParseDb.py select -d NB-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IGH" --logic all --regex --outname heavy;
+ParseDb.py select -d PC-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IGH" --logic all --regex --outname heavy;
+
+ParseDb.py select -d DN-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IG[LK]"
+ --logic all --regex --outname light;ParseDb.py select -d DP-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IG[LK]" --logic all -
+-regex --outname light;ParseDb.py select -d NB-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IG[LK]" --logic all --regex --outna
+me light;ParseDb.py select -d PC-B/20230706/Result/05.match/10X_clone-pass_parse-select.tsv -f v_call j_call c_call -u "IG[LK]" --logic all --regex --outname light;
+
+DefineClones.py -d Total.txt --act set --model ham --norm len --dist 0.13  DefineClones.py -d Total_DN_DP_PC.txt --act set --model ham --norm len --dist 0.21
+
+CreateGermlines.py -d Total_clone-pass.tsv -g dmask -r imgt/share/imgt/human/vdj/imgt_human_IGH*.fasta or  CreateGermlines.py -d Total_clone-pass.tsv -g dmask -r imgt/share/imgt/human/vdj/imgt_human_IGH*.fasta --cloned  or CreateGermlines.py -d Total_DN_DP_PC_clone-pass.tsv -g dmask -r imgt/share/imgt/human/vdj/imgt_human_IGH*.fasta --cloned
+
+BuildTrees.py -d Total_two.txt --outname Total_two --log Total_two.log --collapse --igphyml --nproc 40 or  BuildTrees.py -d Total_DN_DP_PC_two.txt --outname Total_DN_DP_PC_two --log Total_DN_DP_PC_two.log --collapse --igphyml
+ --nproc 40 or BuildTrees.py -d Total_DN_DP_PC_three.txt --outname Total_DN_DP_PC_three --log Total_DN_DP_PC_three.log --collapse --igphyml --nproc 40 or  BuildTrees.py -d Total_two_DN_PC.txt --outname Total_two_DN_PC --log Total_two_DN_PC.log --collapse --igphyml --nproc 40
+
+
+ data <- read.delim("/mnt/e/P23042711/Total_DN_DP_PC_two.txt", stringsAsFactors = FALSE)
+clones = formatClones(data, traits=c("group","c_call"))
+ clones = getTrees(clones, build="igphyml", exec="/mnt/e/P23042711/igphyml/src/igphyml", nproc=40)
+saveRDS(clones,file="/mnt/e/clone_DN_DP_PC_two.rds")
